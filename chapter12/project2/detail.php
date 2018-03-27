@@ -23,34 +23,37 @@ include 'travel-data.inc.php';
 
 <body>
     <?php include 'header.inc.php'; ?>
-    
-
-
     <!-- Page Content -->
     <main class="container">
         <div class="row">
             <?php include 'left.inc.php'; ?>
             <div class="col-md-10">
                 <div class="row">
-                   
-                    <?php   /* you will need to replace this hard-coded data with appropriate PHP */ ?>
-                    
-                    
+                    <?php   
+                        if (isset($_GET["id"])){
+                            $id = $_GET["id"];
+                            foreach ($images as $image){
+                                if ($image["id"]==$id){
+                                    $toDisplay = $image; 
+                                }
+                            }
+                        }
+                    ?>
                     <div class="col-md-8">                                                
-                        <img class="img-responsive" src="images/medium/6114850721.jpg" alt="View of Cologne">
-                        <p class="description">View of Cologne from atop the Cologne Cathedral</p>
+                        <img class="img-responsive" src="images/medium/<?php echo $toDisplay["path"];?>" alt="<?php echo $toDisplay["title"];?>">
+                        <p class="description"><?php echo $toDisplay["description"];?></p>
                     </div>
 
                     <div class="col-md-4">                                                
-                        <h2>View of Cologne</h2>
+                        <h2><?php echo $toDisplay["title"];?></h2>
 
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="details-list">
-                                    <li>By: <a href="#">Joao Fernandes</a></li>
-                                    <li>Country: <a href="#">Germany</a></li>
-                                    <li>City: <a href="#">Cologne</a></li>
-                                    <li>Taken on: August 8, 2017</li>
+                                    <li>By: <a href="#"><?php echo $toDisplay["user"];?></a></li>
+                                    <li>Country: <a href="#"><?php echo $toDisplay["country"];?></a></li>
+                                    <li>City: <a href="#"><?php echo $toDisplay["city"];?></a></li>
+                                    <li>Taken on: <?php echo $toDisplay["taken"];?></li>
                                 </ul>
                             </div>
                         </div>
@@ -73,28 +76,19 @@ include 'travel-data.inc.php';
                         <h4>Tags</h4>
                         <div class="panel panel-default">
                             <div class="panel-body" id="tags">
-                                                                    <span class="label label-default">cathedral</span>
-                                                                    <span class="label label-default">high</span>
-                                                                    <span class="label label-default">birds-eye</span>
+                                <?php foreach ($toDisplay["tags"] as $tag){?>
+                                <span class="label label-default"><?php echo $tag; ?></span>
+                                <?php } ?>
                                 
                             </div>
                         </div>
-                        
-
                     </div>  <!-- end right-info column -->
                 </div>  <!-- end row -->
-                
-                
-                
             <!-- Related Projects Row -->
-
             <!-- /.row -->
-                            
-
             </div>  <!-- end main content area -->
         </div>
     </main>
-    
     <footer>
         <div class="container-fluid">
                     <div class="row final">
@@ -105,10 +99,8 @@ include 'travel-data.inc.php';
         
 
     </footer>
-
-
-        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
 
 </html>
